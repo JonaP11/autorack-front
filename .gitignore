@@ -1,0 +1,17 @@
+# dependencies
+/node_modules
+
+# scss files - these should be compiled to css before commmit
+*.scss
+
+# production
+/build
+
+# project files
+.DS_Store
+.idea
+.vscode
+
+# miscellaneous
+.env.*
+.wakatime-project

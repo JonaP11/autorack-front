@@ -1,0 +1,6 @@
+{
+  "ignoreFiles": [
+    "**/*.json"
+  ],
+  "extends": "stylelint-config-standard"
+}
