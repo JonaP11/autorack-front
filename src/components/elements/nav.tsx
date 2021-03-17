@@ -1,102 +1,149 @@
-import {Divider, List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import MailIcon from '@material-ui/icons/Mail';
+import {AppBar, Toolbar, Typography, makeStyles, Button, IconButton,
+  Drawer, Link, MenuItem,
+} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import React from 'react';
-import {Redirect} from 'react-router-dom';
-import AppPaths from '../../const/paths';
+import React, {useState, useEffect} from 'react';
+import {Link as RouterLink} from 'react-router-dom';
 
-const createNavStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
+const headersData = [
+  {
+    label: 'Login',
+    href: '/signin',
+  },
+  {
+    label: 'Sign Up',
+    href: '/signup',
+  },
+];
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const useStyles = makeStyles((theme) => ({
+  header: {
+    'backgroundColor': '#3f51b5',
+    'paddingRight': '79px',
+    'paddingLeft': '118px',
+    '@media (max-width: 900px)': {
+      paddingLeft: 0,
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
-  }),
-);
-
-const createDrawerStyles = makeStyles(() =>
-  createStyles({
-    list: {
-      width: 250,
-    },
-  }),
-);
-
-type DrawerProps = {
-  onRedirected: () => void,
-};
-
-const DrawerPanel = (props: DrawerProps) => {
-  const drawerStyles = createDrawerStyles();
-
-  const [redirect, setRedirect] = React.useState<string>('');
-
-  if (redirect) {
-    props.onRedirected();
-    return <Redirect to={redirect}/>;
-  }
-
-  return (
-    <div className={drawerStyles.list}>
-      <List>
-        <ListItem button onClick={() => setRedirect(AppPaths.HOME)}>
-          <ListItemIcon><InboxIcon/></ListItemIcon>
-          <ListItemText primary="Home"/>
-        </ListItem>
-      </List>
-      <Divider/>
-      <List>
-        <ListItem button onClick={() => setRedirect(AppPaths.CALC)}>
-          <ListItemIcon><MailIcon/></ListItemIcon>
-          <ListItemText primary="Calculator"/>
-        </ListItem>
-      </List>
-    </div>
-  );
-};
+  },
+  logo: {
+    fontFamily: 'Work Sans, sans-serif',
+    fontWeight: 600,
+    color: '#FFFEFE',
+    textAlign: 'left',
+  },
+  menuButton: {
+    fontFamily: 'Open Sans, sans-serif',
+    fontWeight: 700,
+    size: '18px',
+    marginLeft: '38px',
+  },
+  toolbar: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  drawerContainer: {
+    padding: '20px 30px',
+  },
+}));
 
 export const Navigation = () => {
-  const navStyles = createNavStyles();
+  const {header, logo, menuButton, toolbar, drawerContainer} = useStyles();
 
-  const [opened, setOpened] = React.useState(false);
+  const [state, setState] = useState({
+    mobileView: false,
+    drawerOpen: false,
+  });
 
-  const toggleDrawer = (open: boolean) => () => {
-    setOpened(open);
+  const {mobileView, drawerOpen} = state;
+
+  useEffect(() => {
+    const setResponsiveness = () => {
+      return window.innerWidth < 900 ?
+        setState((prevState) => ({...prevState, mobileView: true})) :
+        setState((prevState) => ({...prevState, mobileView: false}));
+    };
+
+    setResponsiveness();
+
+    window.addEventListener('resize', () => setResponsiveness());
+  }, []);
+
+  const displayDesktop = () => {
+    return (
+      <Toolbar className={toolbar}>
+        {autorackLogo}
+        <div>{getMenuButtons()}</div>
+      </Toolbar>
+    );
+  };
+
+  const displayMobile = () => {
+    const handleDrawerOpen = () =>
+      setState((prevState) => ({...prevState, drawerOpen: true}));
+    const handleDrawerClose = () =>
+      setState((prevState) => ({...prevState, drawerOpen: false}));
+
+    return (
+      <Toolbar>
+        <IconButton
+          {...{
+            'edge': 'start',
+            'color': 'inherit',
+            'aria-label': 'menu',
+            'aria-haspopup': 'true',
+            'onClick': handleDrawerOpen,
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
+
+        <Drawer
+          {...{
+            anchor: 'left',
+            open: drawerOpen,
+            onClose: handleDrawerClose,
+          }}
+        >
+          <div className={drawerContainer}>{getDrawerChoices()}</div>
+        </Drawer>
+
+        <div>{autorackLogo}</div>
+      </Toolbar>
+    );
+  };
+
+  const getDrawerChoices = () => {
+    return headersData.map(({label, href}) => {
+      return (
+        <Link key={label} {...{component: RouterLink, to: href, color: 'inherit', style: {textDecoration: 'none'}}}>
+          <MenuItem>{label}</MenuItem>
+        </Link>
+      );
+    });
+  };
+
+  const autorackLogo = (
+    <Typography variant="h6" component="h1" className={logo}>
+            AutoRack
+    </Typography>
+  );
+
+  const getMenuButtons = () => {
+    return headersData.map(({label, href}) => {
+      return (
+        <Button key={label} {...{color: 'inherit', to: href, component: RouterLink, className: menuButton}}>
+          {label}
+        </Button>
+      );
+    });
   };
 
   return (
-    <>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start" className={navStyles.menuButton}
-            color="inherit"
-            aria-label="menu" onClick={toggleDrawer(true)}
-          >
-            <MenuIcon/>
-          </IconButton>
-          <Typography variant="h6" className={navStyles.title}>
-            AutoRack
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-        <Drawer anchor="left" open={opened} onClose={toggleDrawer(false)}>
-          <DrawerPanel onRedirected={() => setOpened(false)}/>
-        </Drawer>
+    <header style={{marginBottom: '5em'}}>
+      <AppBar className={header}>
+        {mobileView ? displayMobile() : displayDesktop()}
       </AppBar>
-    </>
+    </header>
   );
 };

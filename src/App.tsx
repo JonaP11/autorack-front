@@ -5,7 +5,10 @@ import './App.css';
 
 import {Navigation} from './components/elements/nav';
 import {Calculator} from './components/pages/calculator';
-import {Sample} from './components/pages/sample';
+import {SignIn} from './components/pages/SignIn';
+import {Homepage} from './components/pages/Homepage';
+import {SignUp} from './components/pages/SignUp';
+// import {Sample} from './components/pages/sample';
 import AppPaths from './const/paths';
 
 
@@ -27,7 +30,13 @@ const PageContent = () => {
   return (
     <div className={classes.root}>
       <Route exact path={AppPaths.HOME}>
-        <Sample/>
+        <Homepage />
+      </Route>
+      <Route exact path={AppPaths.SIGN_UP}>
+        <SignUp />
+      </Route>
+      <Route exact path={AppPaths.SIGN_IN}>
+        <SignIn />
       </Route>
       <Route exact path={AppPaths.CALC}>
         <Calculator/>
