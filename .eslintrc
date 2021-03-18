@@ -35,6 +35,10 @@
         "MemberExpression": 1
       }
     ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
     "max-len": [
       2,
       {
@@ -42,7 +46,6 @@
       }
     ],
     "no-unused-vars": "off",
-    // For react-app-env.d.ts triple-slash
     "spaced-comment": [
       "error",
       "always",
