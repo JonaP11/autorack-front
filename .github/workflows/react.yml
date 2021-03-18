@@ -16,6 +16,8 @@ env:
 
   SQLALCHEMY_DATABASE_URI: 'postgresql://test:test@localhost:5432/testdb'
 
+  REACT_APP_API_ROOT: http://localhost:5000
+
 jobs:
   build:
     name: CI
