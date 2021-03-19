@@ -1,35 +1,21 @@
-import React, {useState, FormEvent, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-// import { Link } from 'react-router-dom';
-
 import Avatar from '@material-ui/core/Avatar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
-import UIInput from '../elements/Input';
-import UIButton from '../elements/Button';
-import Message from '../elements/Message';
-import {signin, setError} from '../../actions/authActions';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
+import {makeStyles} from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import React, {FormEvent, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {setError, signIn} from '../../actions/authActions';
+import AppPaths from '../../const/paths';
 import {RootState} from '../../store';
+import Copyright from '../elements/Copyright';
+import Message from '../elements/Message';
+import UIButton from '../elements/ui/Button';
 
-const Copyright = () => {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        AutoRack
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-};
+import UIInput from '../elements/ui/Input';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -66,34 +52,34 @@ export const SignIn = () => {
     };
   }, [error, dispatch]);
 
-  const submitHandler = (e: FormEvent) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (error) {
       dispatch(setError(''));
     }
     setLoading(true);
-    dispatch(signin({email, password}, () => setLoading(false)));
+    dispatch(signIn({email, password}, () => setLoading(false)));
   };
 
   const classes = useStyles();
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
+      <CssBaseline/>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <LockOutlinedIcon/>
         </Avatar>
         <Typography component="h1" variant="h5">
-            Sign in
+          Sign in
         </Typography>
-        <form className={classes.form} onSubmit={submitHandler}>
-          {error && <Message type="danger" msg={error} />}
+        <form className={classes.form} onSubmit={onSubmit}>
+          {error && <Message type="error">{error}</Message>}
           <UIInput
             type="email"
             name="email"
             value={email}
-            onChange={(e) => setEmail(e.currentTarget.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             placeholder="Email address"
             label="Email Address"
           />
@@ -101,7 +87,7 @@ export const SignIn = () => {
             type="password"
             name="password"
             value={password}
-            onChange={(e) => setPassword(e.currentTarget.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             placeholder="Password"
             label="Password"
           />
@@ -116,20 +102,18 @@ export const SignIn = () => {
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
-                  Forgot password?
+                Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/signup" variant="body2">
+              <Link href={AppPaths.SIGN_UP} variant="body2">
                 {'Don\'t have an account? Sign Up'}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
+      <Copyright/>
     </Container>
   );
 };

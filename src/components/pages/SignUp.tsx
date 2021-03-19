@@ -1,20 +1,20 @@
-import React, {useState, FormEvent, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-
 import Avatar from '@material-ui/core/Avatar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Message from '../elements/Message';
-import {signup, setError} from '../../actions/authActions';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
+import {makeStyles} from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import React, {FormEvent, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {setError, signup} from '../../actions/authActions';
+import AppPaths from '../../const/paths';
 import {RootState} from '../../store';
-import UIButton from '../elements/Button';
-import UIInput from '../elements/Input';
+import Message from '../elements/Message';
+import UIButton from '../elements/ui/Button';
+import UIInput from '../elements/ui/Input';
 
 const Copyright = () => {
   return (
@@ -67,7 +67,7 @@ export const SignUp = () => {
     };
   }, [error, dispatch]);
 
-  const submitHandler = (e: FormEvent) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (error) {
       dispatch(setError(''));
@@ -89,14 +89,14 @@ export const SignUp = () => {
             Sign up
         </Typography>
         {error && <span>{error}</span>}
-        <form className={classes.form} onSubmit={submitHandler}>
-          {error && <Message type="danger" msg={error} />}
+        <form className={classes.form} onSubmit={onSubmit}>
+          {error && <Message type="error">{error}</Message>}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <UIInput
                 name="firstName"
                 value={firstName}
-                onChange={(e) => setFirstName(e.currentTarget.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
                 placeholder="First Name"
                 label="First Name"
               />
@@ -105,7 +105,7 @@ export const SignUp = () => {
               <UIInput
                 name="lastName"
                 value={lastName}
-                onChange={(e) => setLastName(e.currentTarget.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
                 placeholder="Last Name"
                 label="Last Name"
               />
@@ -115,7 +115,7 @@ export const SignUp = () => {
                 type="email"
                 name="email"
                 value={email}
-                onChange={(e) => setEmail(e.currentTarget.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                 placeholder="Email address"
                 label="Email Address"
               />
@@ -125,7 +125,7 @@ export const SignUp = () => {
                 type="password"
                 name="password"
                 value={password}
-                onChange={(e) => setPassword(e.currentTarget.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                 placeholder="Password"
                 label="Password"
               />
@@ -141,7 +141,7 @@ export const SignUp = () => {
           />
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/signin" variant="body2">
+              <Link href={AppPaths.SIGN_IN} variant="body2">
                   Already have an account? Sign in
               </Link>
             </Grid>
@@ -154,5 +154,3 @@ export const SignUp = () => {
     </Container>
   );
 };
-
-export default SignUp;
