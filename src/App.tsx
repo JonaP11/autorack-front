@@ -9,6 +9,7 @@ import {Calculator} from './components/pages/Calculator';
 import {Homepage} from './components/pages/Homepage';
 import {SignIn} from './components/pages/SignIn';
 import {SignUp} from './components/pages/SignUp';
+import {PrivateRoute} from './components/auth/PrivateRoute';
 import AppPaths from './const/paths';
 
 
@@ -38,9 +39,7 @@ const PageContent = () => {
       <Route exact path={AppPaths.SIGN_IN}>
         <SignIn />
       </Route>
-      <Route exact path={AppPaths.CALC}>
-        <Calculator/>
-      </Route>
+      <PrivateRoute exact path={AppPaths.CALC} component={Calculator} />
 
       <Copyright/>
     </Container>
