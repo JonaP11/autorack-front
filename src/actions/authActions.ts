@@ -16,7 +16,7 @@ import {
 } from './types';
 
 // Create user
-export const signup = (data: SignUpData, onError: () => void): ThunkAction<void, RootState, null, AuthAction> => {
+export const signUp = (data: SignUpData, onError: () => void): ThunkAction<void, RootState, null, AuthAction> => {
   return async (dispatch) => {
     try {
       const res = await fireAuth.createUserWithEmailAndPassword(data.email, data.password);

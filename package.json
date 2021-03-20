@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
+    "@types/material-ui": "^0.21.8",
     "@types/node": "^12.19.16",
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.0",

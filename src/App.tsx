@@ -2,6 +2,7 @@ import {Container, makeStyles} from '@material-ui/core';
 import React from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
 import './App.css';
+import Copyright from './components/elements/Copyright';
 
 import {Navigation} from './components/elements/nav/Main';
 import {Calculator} from './components/pages/Calculator';
@@ -40,6 +41,8 @@ const PageContent = () => {
       <Route exact path={AppPaths.CALC}>
         <Calculator/>
       </Route>
+
+      <Copyright/>
     </Container>
   );
 };
