@@ -46,6 +46,15 @@
       }
     ],
     "no-unused-vars": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          "@material-ui/*/*/*",
+          "!@material-ui/core/test-utils/*"
+        ]
+      }
+    ],
     "spaced-comment": [
       "error",
       "always",

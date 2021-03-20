@@ -1,11 +1,14 @@
-import {makeStyles} from '@material-ui/core';
+import {Container, makeStyles} from '@material-ui/core';
 import React from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
 import './App.css';
+import Copyright from './components/elements/Copyright';
 
-import {Navigation} from './components/elements/nav';
-import {Calculator} from './components/pages/calculator';
-import {Sample} from './components/pages/sample';
+import {Navigation} from './components/elements/nav/Main';
+import {Calculator} from './components/pages/Calculator';
+import {Homepage} from './components/pages/Homepage';
+import {SignIn} from './components/pages/SignIn';
+import {SignUp} from './components/pages/SignUp';
 import AppPaths from './const/paths';
 
 
@@ -25,14 +28,22 @@ const PageContent = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <Container className={classes.root}>
       <Route exact path={AppPaths.HOME}>
-        <Sample/>
+        <Homepage />
+      </Route>
+      <Route exact path={AppPaths.SIGN_UP}>
+        <SignUp />
+      </Route>
+      <Route exact path={AppPaths.SIGN_IN}>
+        <SignIn />
       </Route>
       <Route exact path={AppPaths.CALC}>
         <Calculator/>
       </Route>
-    </div>
+
+      <Copyright/>
+    </Container>
   );
 };
 
