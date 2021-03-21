@@ -1,7 +1,7 @@
 import {Link, makeStyles, MenuItem} from '@material-ui/core';
 import React from 'react';
 import {Link as RouterLink} from 'react-router-dom';
-import {navItems} from './Items';
+import {navBarItems} from './Items';
 
 const useStyles = makeStyles(() => ({
   drawer: {
@@ -21,7 +21,7 @@ export const NavDrawer = ({onItemClicked}: DrawerProps) => {
   return (
     <>
       {
-        navItems.map((entry) => {
+        navBarItems.map((entry) => {
           return (
             <Link
               key={entry.label}
