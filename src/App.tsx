@@ -1,7 +1,7 @@
 import {Container, makeStyles} from '@material-ui/core';
 import React from 'react';
 import {Provider} from 'react-redux';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import {PersistGate} from 'redux-persist/integration/react';
 import './App.css';
 import Copyright from './components/elements/Copyright';
@@ -12,6 +12,8 @@ import {Homepage} from './components/pages/Homepage';
 import {SignIn} from './components/pages/SignIn';
 import {SignUp} from './components/pages/SignUp';
 import {PrivateRoute} from './components/auth/PrivateRoute';
+import {PublicRoute} from './components/auth/PublicRoute';
+
 import AppPaths from './const/paths';
 import {persistor, store} from './state/store';
 
@@ -37,15 +39,9 @@ const PageContent = () => {
 
   return (
     <Container className={classes.root}>
-      <Route exact path={AppPaths.HOME}>
-        <Homepage/>
-      </Route>
-      <Route exact path={AppPaths.SIGN_UP}>
-        <SignUp/>
-      </Route>
-      <Route exact path={AppPaths.SIGN_IN}>
-        <SignIn/>
-      </Route>
+      <PublicRoute exact path={AppPaths.HOME} component={Homepage} />
+      <PublicRoute exact path={AppPaths.SIGN_UP} component={SignUp} />
+      <PublicRoute exact path={AppPaths.SIGN_IN} component={SignIn} />
       <PrivateRoute exact path={AppPaths.CALC} component={Calculator} />
 
       <Copyright/>

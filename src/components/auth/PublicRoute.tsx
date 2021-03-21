@@ -6,13 +6,14 @@ import {RootState} from '../../store';
 import AppPaths from '../../const/paths';
 
 interface Props extends RouteProps {
-    component: any;
+  component: any;
 }
 
-export const PrivateRoute = ({component: Component, ...rest}:Props) => {
+export const PublicRoute = ({component: Component, ...rest}:Props) => {
   const {authenticated} = useSelector((state: RootState) => state.auth);
 
   return (
-    <Route {...rest} render={(props) => authenticated ? <Component {...props} /> : <Redirect to={AppPaths.SIGN_IN}/>} />
+    <Route {...rest} render={(props) => !authenticated ? <Component {...props} /> :
+      <Redirect to={AppPaths.CALC} />} />
   );
 };
