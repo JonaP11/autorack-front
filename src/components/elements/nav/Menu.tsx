@@ -1,7 +1,9 @@
 import {Button, makeStyles} from '@material-ui/core';
 import React from 'react';
+import {useSelector} from 'react-redux';
 import {Link as RouterLink} from 'react-router-dom';
 import {navItems} from './Items';
+import {rootState} from '../../../store';
 
 const useStyles = makeStyles(() => ({
   menuButton: {
@@ -15,9 +17,11 @@ const useStyles = makeStyles(() => ({
 
 export const NavMenu = () => {
   const style = useStyles();
+  let isAuthenticated = useSelector((state: rootState) => state.auth.authenticated);
 
   return (
     <>
+      {}
       {
         navItems.map((entry) => {
           return (

@@ -7,7 +7,11 @@ export default class AppPaths {
   // User Control
   static SIGN_IN = '/signin';
   static SIGN_UP = '/signup';
+  static SIGN_OUT = '/signout';
 
   // Sample
   static CALC = '/calc';
+
+  // Authenticated paths
+  static DASHBOARD = '/dashboard';
 }
