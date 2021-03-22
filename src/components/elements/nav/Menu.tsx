@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles, Button} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core';
 import UIButton from '../../elements/ui/Button';
 import {useSelector, useDispatch} from 'react-redux';
 import {Link as RouterLink} from 'react-router-dom';
@@ -9,6 +9,18 @@ import {signOut} from '../../../actions/authActions';
 
 const useStyles = makeStyles(() => ({
   menuButton: {
+    width: '80px',
+    fontFamily: 'Open Sans, sans-serif',
+    fontWeight: 700,
+    size: '18px',
+    marginLeft: '38px',
+  },
+  menuFlex: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  signOutButton: {
+    width: '150px',
     fontFamily: 'Open Sans, sans-serif',
     fontWeight: 700,
     size: '18px',
@@ -20,24 +32,26 @@ const IsNotLoggedInItems = () => {
   const style = useStyles();
   return (
     <>
-      <Button
-        className={style.menuButton}
-        color="inherit"
-        key={navBarItems[0].label}
-        to={navBarItems[0].link}
-        component={RouterLink}
-      >
-        {navBarItems[0].label}
-      </Button>
-      <Button
-        className={style.menuButton}
-        to={navBarItems[1].link}
-        color="inherit"
-        component={RouterLink}
-        key={navBarItems[1].label}
-      >
-        {navBarItems[1].label}
-      </Button>
+      <div className={style.menuFlex}>
+        <UIButton
+          className={style.menuButton}
+          color="inherit"
+          variant="text"
+          text={navBarItems[0].label}
+          key={navBarItems[0].label}
+          to={navBarItems[0].link}
+          component={RouterLink}
+        />
+        <UIButton
+          className={style.menuButton}
+          to={navBarItems[1].link}
+          color="inherit"
+          variant="text"
+          component={RouterLink}
+          key={navBarItems[1].label}
+          text={navBarItems[1].label}
+        />
+      </div>
     </>
   );
 };
@@ -54,7 +68,7 @@ const IsLoggedInItems = () => {
   return (
     <>
       <UIButton
-        className={style.menuButton}
+        className={style.signOutButton}
         color="secondary"
         onClick={handleClick}
         key={navBarItems[2].label}

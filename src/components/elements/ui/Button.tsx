@@ -1,9 +1,10 @@
-import {Button, PropTypes} from '@material-ui/core';
+import {Button, PropTypes, ButtonProps as MaterialButtonProps} from '@material-ui/core';
 import React, {ButtonHTMLAttributes} from 'react';
+import {LinkProps} from 'react-router-dom';
 
 type ButtonVariant = 'text' | 'outlined' | 'contained';
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & MaterialButtonProps & Partial<LinkProps> & {
   text: string,
   variant: ButtonVariant,
   color: PropTypes.Color,
