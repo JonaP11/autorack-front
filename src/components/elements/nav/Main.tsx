@@ -36,7 +36,7 @@ export const Navigation = () => {
 
   return (
     <header className={style.navHeader}>
-      <AppBar className={style.navBar}>
+      <AppBar className={style.navBar} >
         {isPortrait ? <NavPortrait/> : <NavLandscape/>}
       </AppBar>
     </header>

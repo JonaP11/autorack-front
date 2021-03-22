@@ -10,4 +10,7 @@ export default class AppPaths {
 
   // Sample
   static CALC = '/calc';
+
+  // Menu
+  static MENU = '/menu'
 }
