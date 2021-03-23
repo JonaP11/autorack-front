@@ -1,3 +1,4 @@
+  
 {
   "env": {
     "browser": true,
@@ -22,7 +23,8 @@
   },
   "plugins": [
     "@typescript-eslint",
-    "react"
+    "react",
+    "eslint-plugin-import"
   ],
   "rules": {
     "@typescript-eslint/no-unused-vars": [
@@ -62,6 +64,31 @@
         "markers": [
           "/"
         ]
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [
+          "react"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
       }
     ]
   },

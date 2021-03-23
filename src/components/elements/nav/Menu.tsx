@@ -1,11 +1,13 @@
 import React from 'react';
+
 import {makeStyles, Button} from '@material-ui/core';
-import UIButton from '../../elements/ui/Button';
 import {useSelector, useDispatch} from 'react-redux';
 import {Link as RouterLink} from 'react-router-dom';
-import {navBarItems} from './Items';
-import {rootState} from '../../../reducers';
+
 import {signOut} from '../../../actions/authActions';
+import {rootState} from '../../../reducers';
+import UIButton from '../../elements/ui/Button';
+import {navBarItems} from './Items';
 
 const useStyles = makeStyles(() => ({
   menuButton: {
