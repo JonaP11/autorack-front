@@ -9,8 +9,7 @@
     "plugin:react/recommended"
   ],
   "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
+    "Atomics": "readonly"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

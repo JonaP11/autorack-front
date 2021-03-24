@@ -1,6 +1,8 @@
 import {Container, makeStyles} from '@material-ui/core';
 import React from 'react';
+import {Provider} from 'react-redux';
 import {BrowserRouter, Route} from 'react-router-dom';
+import {PersistGate} from 'redux-persist/integration/react';
 import './App.css';
 import Copyright from './components/elements/Copyright';
 
@@ -10,6 +12,7 @@ import {Homepage} from './components/pages/Homepage';
 import {SignIn} from './components/pages/SignIn';
 import {SignUp} from './components/pages/SignUp';
 import AppPaths from './const/paths';
+import {persistor, store} from './state/store';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,20 +26,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
+/**
+ * Content of each page.
+ *
+ * @return {JSX.Element}
+ */
 const PageContent = () => {
   const classes = useStyles();
 
   return (
     <Container className={classes.root}>
       <Route exact path={AppPaths.HOME}>
-        <Homepage />
+        <Homepage/>
       </Route>
       <Route exact path={AppPaths.SIGN_UP}>
-        <SignUp />
+        <SignUp/>
       </Route>
       <Route exact path={AppPaths.SIGN_IN}>
-        <SignIn />
+        <SignIn/>
       </Route>
       <Route exact path={AppPaths.CALC}>
         <Calculator/>
@@ -47,13 +54,34 @@ const PageContent = () => {
   );
 };
 
+/**
+ * Body of the app.
+ *
+ * @return {JSX.Element}
+ */
+const AppPage = () => {
+  return (
+    <>
+      <Navigation/>
+      <PageContent/>
+    </>
+  );
+};
+
+/**
+ * Main app. Tests should use this and not the others.
+ *
+ * @return {JSX.Element}
+ */
 const App = () => {
   return (
-    <BrowserRouter>
-      <Navigation/>
-
-      <PageContent/>
-    </BrowserRouter>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <BrowserRouter>
+          <AppPage/>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
   );
 };
 
