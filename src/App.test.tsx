@@ -5,8 +5,8 @@ import App from './App';
 
 test('renders learn react link', () => {
   render(<App/>);
-  const linkElement = screen.getByText(/Lorem/i);
-  expect(linkElement).toBeInTheDocument();
+  const linkElement = screen.getAllByText(/AutoRack/);
+  expect(linkElement.length).toBeGreaterThan(0);
 });
 
 test('checks API is up', async () => {

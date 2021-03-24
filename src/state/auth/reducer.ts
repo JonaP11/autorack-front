@@ -4,7 +4,6 @@ import {AuthState} from './state';
 
 const initialState: AuthState = {
   user: null,
-  authenticated: false,
   error: '',
 };
 
