@@ -4,6 +4,8 @@ import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 import {PersistGate} from 'redux-persist/integration/react';
 import './App.css';
+import {PrivateRoute} from './components/auth/PrivateRoute';
+import {PublicRoute} from './components/auth/PublicRoute';
 import Copyright from './components/elements/Copyright';
 
 import {Navigation} from './components/elements/nav/Main';
@@ -11,8 +13,6 @@ import {Calculator} from './components/pages/Calculator';
 import {Homepage} from './components/pages/Homepage';
 import {SignIn} from './components/pages/SignIn';
 import {SignUp} from './components/pages/SignUp';
-import {PrivateRoute} from './components/auth/PrivateRoute';
-import {PublicRoute} from './components/auth/PublicRoute';
 
 import AppPaths from './const/paths';
 import {persistor, store} from './state/store';
@@ -39,10 +39,10 @@ const PageContent = () => {
 
   return (
     <Container className={classes.root}>
-      <PublicRoute exact path={AppPaths.HOME} component={Homepage} />
-      <PublicRoute exact path={AppPaths.SIGN_UP} component={SignUp} />
-      <PublicRoute exact path={AppPaths.SIGN_IN} component={SignIn} />
-      <PrivateRoute exact path={AppPaths.CALC} component={Calculator} />
+      <PublicRoute exact path={AppPaths.HOME} component={Homepage}/>
+      <PublicRoute exact path={AppPaths.SIGN_UP} component={SignUp}/>
+      <PublicRoute exact path={AppPaths.SIGN_IN} component={SignIn}/>
+      <PrivateRoute exact path={AppPaths.CALC} component={Calculator}/>
 
       <Copyright/>
     </Container>
