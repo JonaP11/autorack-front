@@ -26,7 +26,7 @@ export const InputName = (props: InputNameProps) => {
     firstLabel = 'First Name',
     lastName = 'lastName',
     lastPlaceholder = 'Last Name',
-    lastLabel = 'LastName',
+    lastLabel = 'Last Name',
   } = props;
 
   return (

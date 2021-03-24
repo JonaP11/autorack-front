@@ -1,9 +1,9 @@
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import React, {useState} from 'react';
-import {signUp} from '../../actions/authActions';
-import {SignUpData} from '../../actions/types';
 import AppPaths from '../../const/paths';
+import {SignUpData} from '../../state/auth/data';
+import {authDispatchers} from '../../state/auth/dispatchers';
 import {AccountInfoForm} from '../elements/account/InfoForm';
 import InputEmail from '../elements/account/InputEmail';
 import {InputName} from '../elements/account/InputName';
@@ -39,7 +39,7 @@ export const SignUp = () => {
       title="Sign up"
       buttonTextDefault="Sign up"
       accountInfoData={accountInfo}
-      onDispatch={signUp}
+      dispatcher={authDispatchers.signUp}
       footer={<SignUpFooter/>}
     >
       <Grid container spacing={2}>

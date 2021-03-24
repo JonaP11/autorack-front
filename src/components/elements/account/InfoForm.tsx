@@ -4,13 +4,13 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import React, {FormEvent, useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {ThunkAction} from 'redux-thunk';
-import {setError} from '../../../actions/authActions';
-import {AuthAction} from '../../../actions/types';
+import {AsyncThunk, unwrapResult} from '@reduxjs/toolkit';
+import React, {FormEvent, useState} from 'react';
+import {useSelector} from 'react-redux';
 import {FetchStatus} from '../../../api/definitions/misc';
-import {RootState} from '../../../store';
+import {User, UserAuthInfo} from '../../../state/auth/data';
+import {authDispatchers} from '../../../state/auth/dispatchers';
+import {RootState, useThunkDispatch} from '../../../state/store';
 import UIButton from '../ui/Button';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,52 +33,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-type AccountInfoFormProps<T> = {
+type AccountInfoFormProps<T extends UserAuthInfo> = {
   title: string,
   buttonTextDefault: string,
   buttonTextLoading?: string,
   accountInfoData: T,
-  onDispatch: (data: T, onError: () => void) => ThunkAction<void, RootState, null, AuthAction>,
+  dispatcher: AsyncThunk<User | null, T, {}>,
   footer: JSX.Element,
 }
 
-export const AccountInfoForm = <T, >(props: React.PropsWithChildren<AccountInfoFormProps<T>>) => {
-  const {title, buttonTextDefault, buttonTextLoading, accountInfoData, onDispatch, children, footer} = props;
+export const AccountInfoForm = <T extends UserAuthInfo>(props: React.PropsWithChildren<AccountInfoFormProps<T>>) => {
+  const {title, buttonTextDefault, buttonTextLoading, accountInfoData, dispatcher, children, footer} = props;
 
-  const [fetchStatus, setFetchStatus] = useState<FetchStatus<any>>({
+  const [fetchStatus, setFetchStatus] = useState<FetchStatus>({
     fetched: false,
     fetching: false,
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useThunkDispatch();
   const {error} = useSelector((state: RootState) => state.auth);
-
-  useEffect(() => {
-    return () => {
-      if (error) {
-        dispatch(setError(''));
-      }
-    };
-  }, [error, dispatch]);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (error) {
-      dispatch(setError(''));
+      dispatch(authDispatchers.setError(error));
     }
     setFetchStatus({
       fetching: true,
       fetched: false,
     });
-    dispatch(onDispatch(
-      accountInfoData,
-      () => {
+    dispatch(dispatcher(accountInfoData))
+      .then(unwrapResult)
+      .catch(() => {
         setFetchStatus({
           fetching: false,
           fetched: true,
         });
-      },
-    ));
+      });
   };
 
   const classes = useStyles();

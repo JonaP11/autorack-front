@@ -1,8 +1,8 @@
 import {Grid, Link} from '@material-ui/core';
 import React, {useState} from 'react';
-import {signIn} from '../../actions/authActions';
-import {SignInData} from '../../actions/types';
 import AppPaths from '../../const/paths';
+import {SignInData} from '../../state/auth/data';
+import {authDispatchers} from '../../state/auth/dispatchers';
 import {AccountInfoForm} from '../elements/account/InfoForm';
 import InputEmail from '../elements/account/InputEmail';
 import InputPassword from '../elements/account/InputPassword';
@@ -39,7 +39,7 @@ export const SignIn = () => {
       title="Sign in"
       buttonTextDefault="Sign in"
       accountInfoData={accountInfo}
-      onDispatch={signIn}
+      dispatcher={authDispatchers.signIn}
       footer={<SignInFooter/>}
     >
       <InputEmail email={accountInfo.email} onValueChanged={updateAccountInfo('email')}/>
