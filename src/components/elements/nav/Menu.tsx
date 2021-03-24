@@ -19,19 +19,17 @@ export const NavMenu = () => {
   return (
     <>
       {
-        navItems.map((entry) => {
-          return (
-            <Button
-              className={style.menuButton}
-              to={entry.link}
-              color="inherit"
-              component={RouterLink}
-              key={entry.label}
-            >
-              {entry.label}
-            </Button>
-          );
-        })
+        navItems.map((entry) => (
+          <Button
+            className={style.menuButton}
+            to={entry.link}
+            color="inherit"
+            component={RouterLink}
+            key={entry.label}
+          >
+            {entry.label}
+          </Button>
+        ))
       }
     </>
   );
