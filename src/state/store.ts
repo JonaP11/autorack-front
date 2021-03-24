@@ -2,6 +2,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import {useDispatch} from 'react-redux';
 import {persistStore} from 'redux-persist';
 import thunk from 'redux-thunk';
+
 import rootReducer from './reducer';
 
 export const store = configureStore({

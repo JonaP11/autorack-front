@@ -1,3 +1,5 @@
+import React, {FormEvent, useState} from 'react';
+
 import {Container} from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -5,8 +7,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {AsyncThunk, unwrapResult} from '@reduxjs/toolkit';
-import React, {FormEvent, useState} from 'react';
 import {useSelector} from 'react-redux';
+
 import {FetchStatus} from '../../../api/definitions/misc';
 import {User, UserAuthInfo} from '../../../state/auth/data';
 import {authDispatchers} from '../../../state/auth/dispatchers';
